@@ -1,0 +1,264 @@
+task: S2T
+device: cuda
+do_translation: True
+do_recognition: True
+data:
+  test_label_path: /content/drive/MyDrive/Phoenix-2014T/Phoenix-2014T.test
+  train_label_path: /content/drive/MyDrive/Phoenix-2014T/Phoenix-2014T.train 
+  dev_label_path: /content/drive/MyDrive/Phoenix-2014T/Phoenix-2014T.dev
+  max_length: 300
+  input_streams: keypoint
+  level: word  #word or char
+  txt_lowercase: true
+  max_sent_length: 400
+  dataset_name: Phoenix-2014T
+
+testing:
+  recognition:
+    beam_size: 5
+  translation:
+    length_penalty: 1
+    max_length: 100
+    num_beams: 5
+gloss:
+  gloss2id_file: /content/drive/MyDrive/Phoenix-2014T/gloss2ids.pkl
+training:
+  wandb: disabled # online or disabled
+  model_dir: /outputs/phoenix-2014T_SLT
+  validation:
+    recognition:
+      beam_size: 1
+    translation:
+      length_penalty: 1
+      max_length: 100
+      num_beams: 5
+  optimization:
+    optimizer: Adam
+    learning_rate:
+      default: 1.0e-05
+      mapper: 1.0e-3
+      translation: 1.0e-05
+    weight_decay: 0.001
+    betas:
+      - 0.9
+      - 0.998
+    scheduler: cosineannealing
+    t_max: 40
+model:
+  RecognitionNetwork:
+    pretrained_path: /content/drive/MyDrive/Phoenix-2014T_SLR/best.pth
+    input_type: keypoint
+    SlowFast:
+      Beta: 8
+      Alpha: 4
+      fusion_kernel_size: 5
+      input_channels: 64
+      temporal_kernels: [[1,7],[1,3], [3,3], [3,3]]
+      body: [0,1,3,5,7,9,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,2,4,6,8,10,112,113,
+             114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,23,26,29,33,36,39,41,43,46,48,
+             53,56,59,62,65,68,71,72,73,74,75,76,77,79,80,81]
+      real_indexes_dicc: {'0': 0,
+                          '1': 1,
+                          '3': 2,
+                          '5': 3,
+                          '7': 4,
+                          '9': 5,
+                          '91': 6,
+                          '92': 7,
+                          '93': 8,
+                          '94': 9,
+                          '95': 10,
+                          '96': 11,
+                          '97': 12,
+                          '98': 13,
+                          '99': 14,
+                          '100': 15,
+                          '101': 16,
+                          '102': 17,
+                          '103': 18,
+                          '104': 19,
+                          '105': 20,
+                          '106': 21,
+                          '107': 22,
+                          '108': 23,
+                          '109': 24,
+                          '110': 25,
+                          '111': 26,
+                          '2': 27,
+                          '4': 28,
+                          '6': 29,
+                          '8': 30,
+                          '10': 31,
+                          '112': 32,
+                          '113': 33,
+                          '114': 34,
+                          '115': 35,
+                          '116': 36,
+                          '117': 37,
+                          '118': 38,
+                          '119': 39,
+                          '120': 40,
+                          '121': 41,
+                          '122': 42,
+                          '123': 43,
+                          '124': 44,
+                          '125': 45,
+                          '126': 46,
+                          '127': 47,
+                          '128': 48,
+                          '129': 49,
+                          '130': 50,
+                          '131': 51,
+                          '132': 52,
+                          '23': 53,
+                          '26': 54,
+                          '29': 55,
+                          '33': 56,
+                          '36': 57,
+                          '39': 58,
+                          '41': 59,
+                          '43': 60,
+                          '46': 61,
+                          '48': 62,
+                          '53': 63,
+                          '56': 64,
+                          '59': 65,
+                          '62': 66,
+                          '65': 67,
+                          '68': 68,
+                          '71': 69,
+                          '72': 70,
+                          '73': 71,
+                          '74': 72,
+                          '75': 73,
+                          '76': 74,
+                          '77': 75,
+                          '79': 76,
+                          '80': 77,
+                          '81': 78}
+      connections: [[29,33,79,80,81],
+                    [2,46,48,39],
+                    [1,23,41,43],
+                    [39,36],
+                    [23,26],
+                    [0,7,9],
+                    [0,8,10],
+                    [5,9],
+                    [6,10],
+                    [7,5,10,112],
+                    [8,6,9,91],
+                    [59,4,2],
+                    [4,71,29],
+                    [26,0,71],
+                    [0,77,36],
+                    [33,77,3],
+                    [1,68,3],
+                    [2,43,59],
+                    [41,2,46,62],
+                    [1,43,65,48],
+                    [1,46,68],
+                    [56,62,65],
+                    [53,73,74,75],
+                    [23,41,62],
+                    [43,59,53],
+                    [46,68,53],
+                    [39,48,65],
+                    [26,29,72,81],
+                    [71,73,81],
+                    [72,74,56],
+                    [73,75,56,80],
+                    [74,76,56],
+                    [75,77,79],
+                    [76,79,36,33],
+                    [80,77,76,0],
+                    [79,81,0,74],
+                    [80,71,72,0],
+                    [92,96,100,104,108,9],
+                    [91,93],
+                    [92,94,96],
+                    [93,95],
+                    [94,99],
+                    [93,91,97,100],
+                    [96,98],
+                    [97,99],
+                    [95,98,103],
+                    [96,91,104,101],
+                    [100,102],
+                    [101,103],
+                    [99,102,107],
+                    [100,108,91,105],
+                    [104,106],
+                    [105,107],
+                    [103,106,111],
+                    [91,104,109],
+                    [108,110],
+                    [109,111],
+                    [110,107],
+                    [113, 117, 121, 125, 129, 10], 
+                    [112, 114],
+                    [113, 115, 117],
+                    [114, 116],
+                    [115, 120],
+                    [114, 112, 118, 121],
+                    [117, 119], 
+                    [118, 120], 
+                    [116, 119, 124], 
+                    [117, 112, 125, 122], 
+                    [121, 123], 
+                    [122, 124], 
+                    [120, 123, 128],
+                    [121, 129, 112, 126],
+                    [125, 127],
+                    [126, 128], 
+                    [124, 127, 132], 
+                    [112, 125, 130], 
+                    [129, 131], 
+                    [130, 132], 
+                    [131, 128]
+                ]
+    GlossTokenizer:
+      gloss2id_file: /content/drive/MyDrive/Phoenix-2014T/gloss2ids.pkl
+    fast_visual_head:
+      input_size: 256
+      hidden_size: 512
+      ff_size: 2048
+      pe: True
+      ff_kernelsize:
+        - 3
+        - 3
+    slow_visual_head:
+      input_size: 2048
+      hidden_size: 512
+      ff_size: 2048
+      pe: True
+      ff_kernelsize:
+        - 3
+        - 3
+    fuse_visual_head:
+      input_size: 2304
+      hidden_size: 512
+      ff_size: 2048
+      pe: True
+      ff_kernelsize:
+        - 3
+        - 3
+    
+  TranslationNetwork:
+    GlossEmbedding:
+      freeze: false
+      gloss2embed_file: /content/drive/MyDrive/mBart_de/gloss_embeddings.bin
+    GlossTokenizer:
+      gloss2id_file: /content/drive/MyDrive/mBart_de/gloss2ids.pkl
+      src_lang: de_DGS
+    TextTokenizer:
+      pretrained_model_name_or_path: /content/drive/MyDrive/mBart_de
+      pruneids_file: /content/drive/MyDrive/mBart_de/map_ids.pkl
+      tgt_lang: de_DE
+    load_ckpt: /content/best.ckpt
+    pretrained_model_name_or_path: /content/drive/MyDrive/mBart_de
+    overwrite_cfg:
+      attention_dropout: 0.1
+      dropout: 0.3
+  VLMapper:
+    in_features: 512
+    multistream_fuse: empty

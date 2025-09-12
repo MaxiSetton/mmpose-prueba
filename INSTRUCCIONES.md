@@ -26,6 +26,8 @@ Verificación:
 python -c "from mmcv.ops import RoIPool; print('✅ ¡MISIÓN CUMPLIDA! MMCV compilado y funcionando.')"
 ```
 Una vez que esté todo instalado, hay que:
-1. Descargar el .pth (checkpoint) desde el model zoo de openpose
-2. Mover main, el modelo.pth a la carpeta 'mmpose'
-3. Ejecutar el main.py desde la carpeta mmpose
+1. clonar el repo de mmpose  
+2. Descargar el .pth (checkpoint) desde el model zoo de openpose
+3. Mover main, el modelo.pth a la carpeta 'mmpose'
+4. Ejecutar el main.py desde la carpeta mmpose
+5. En el venv, cambiar la parte que carga el modelo para desactivar weights_only en el torch.load
