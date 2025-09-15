@@ -719,7 +719,7 @@ class Predictor():
         for k, gls_logits in output['fuse_outputs'].items():
                 ctc_decode_output = self.model.decode(gls_logits,
                                                 1,
-                                                t_dim)
+                                                torch.tensor([t_dim]))
 
                 batch_pred_gls = self.tokenizer.convert_ids_to_tokens(ctc_decode_output)
         return batch_pred_gls
