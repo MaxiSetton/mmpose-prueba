@@ -714,7 +714,7 @@ class Predictor():
     def __call__(self,keypoints):
         t_dim=len(keypoints)
         body_indexes=self.config['model']['RecognitionNetwork']['SlowFast']['body']
-        keypoints=torch.tensor(keypoints[:,body_indexes]).permute(2,0,1).unsqueeze(0)
+        keypoints=torch.tensor(keypoints[:,body_indexes]).permute(2,0,1).unsqueeze(0).float()
         output = self.model(keypoints.to(self.device))
         for k, gls_logits in output['fuse_outputs'].items():
                 ctc_decode_output = self.model.decode(gls_logits,
