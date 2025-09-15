@@ -698,6 +698,7 @@ class GlossTokenizer_S2G(BaseGlossTokenizer):
 
 class Predictor():
     def __init__(self,cfg_path, ckpt_path, device):
+        self.device = device
         with open(cfg_path, encoding="utf-8") as file:
             self.config = yaml.safe_load(file)
         self.tokenizer=GlossTokenizer_S2G(self.config['gloss'])
