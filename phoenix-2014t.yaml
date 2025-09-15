@@ -21,7 +21,7 @@ testing:
     max_length: 100
     num_beams: 5
 gloss:
-  gloss2id_file: /content/drive/MyDrive/Phoenix-2014T/gloss2ids.pkl
+  gloss2id_file: /home/ubuntu/SignAI-SFS/AI-Setto/assets/gloss2ids.pkl
 training:
   wandb: disabled # online or disabled
   model_dir: /outputs/phoenix-2014T_SLT
@@ -46,7 +46,7 @@ training:
     t_max: 40
 model:
   RecognitionNetwork:
-    pretrained_path: /content/drive/MyDrive/Phoenix-2014T_SLR/best.pth
+    pretrained_path: /home/ubuntu/SignAI-SFS/AI-Setto/best.pth
     input_type: keypoint
     SlowFast:
       Beta: 8
@@ -217,7 +217,7 @@ model:
                     [131, 128]
                 ]
     GlossTokenizer:
-      gloss2id_file: /content/drive/MyDrive/Phoenix-2014T/gloss2ids.pkl
+      gloss2id_file: /home/ubuntu/SignAI-SFS/AI-Setto/assets/gloss2ids.pkl
     fast_visual_head:
       input_size: 256
       hidden_size: 512
@@ -246,16 +246,16 @@ model:
   TranslationNetwork:
     GlossEmbedding:
       freeze: false
-      gloss2embed_file: /content/drive/MyDrive/mBart_de/gloss_embeddings.bin
+      gloss2embed_file: /home/ubuntu/SignAI-SFS/AI-Setto/assets/mBart_de/gloss_embeddings.bin
     GlossTokenizer:
-      gloss2id_file: /content/drive/MyDrive/mBart_de/gloss2ids.pkl
+      gloss2id_file: /home/ubuntu/SignAI-SFS/AI-Setto/assets/mBart_de/gloss2ids.pkl
       src_lang: de_DGS
     TextTokenizer:
-      pretrained_model_name_or_path: /content/drive/MyDrive/mBart_de
-      pruneids_file: /content/drive/MyDrive/mBart_de/map_ids.pkl
+      pretrained_model_name_or_path: /home/ubuntu/SignAI-SFS/AI-Setto/assets/mBart_de
+      pruneids_file: /home/ubuntu/SignAI-SFS/AI-Setto/assets/mBart_de/map_ids.pkl
       tgt_lang: de_DE
     load_ckpt: /content/best.ckpt
-    pretrained_model_name_or_path: /content/drive/MyDrive/mBart_de
+    pretrained_model_name_or_path: /home/ubuntu/SignAI-SFS/AI-Setto/assets/mbart_de
     overwrite_cfg:
       attention_dropout: 0.1
       dropout: 0.3
