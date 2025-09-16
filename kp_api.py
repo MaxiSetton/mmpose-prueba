@@ -6,6 +6,7 @@ import torch
 from mmpose.apis import inference_topdown, init_model
 from tqdm import tqdm
 
+torch.serialization.add_safe_globals([np.core.multiarray._reconstruct])
 
 class KeypointExtractor:
     def __init__(self, config, checkpoint, device='cpu'):
