@@ -80,6 +80,9 @@ async def predict(video_url: str):
             print("Sending keypoints to the predictor...")
             predicted_glosses = predictor(keypoints)
 
+            print("Sending glosses to the client...")
+            print(predicted_glosses)
+
             return {"predicted_glosses": " ".join(predicted_glosses[0])}
 
     except requests.exceptions.RequestException as e:
