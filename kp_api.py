@@ -1,4 +1,4 @@
-# keypoint_extractor.py
+# kp_api.py
 
 import cv2
 import numpy as np
@@ -6,7 +6,10 @@ import torch
 from mmpose.apis import inference_topdown, init_model
 from tqdm import tqdm
 
+# V-- THESE ARE THE CRUCIAL LINES TO ADD --V
+# This explicitly allows PyTorch to load checkpoints containing NumPy arrays.
 torch.serialization.add_safe_globals([np.core.multiarray._reconstruct])
+
 
 class KeypointExtractor:
     def __init__(self, config, checkpoint, device='cpu'):
@@ -17,8 +20,6 @@ class KeypointExtractor:
             checkpoint (str): Path to the model checkpoint file.
             device (str): Device to run inference on ('cpu' or 'cuda').
         """
-        # This is for a specific numpy version issue with some torch checkpoints
-        torch.serialization.add_safe_globals([np.core.multiarray._reconstruct])
         self.model = init_model(config, checkpoint, device=device)
         print("Keypoint extractor model loaded successfully.")
 
@@ -48,24 +49,18 @@ class KeypointExtractor:
             if not ret:
                 break
 
-            # In a real-world scenario, you'd use a person detector here.
-            # For this example, we assume one person fills the frame.
             person_bbox = [0, 0, frame_width, frame_height]
 
             results = inference_topdown(self.model, frame, bboxes=[person_bbox])
 
-            # Ensure a pose was detected
             if not results or not results[0].pred_instances.keypoints.any():
-                # If no keypoints, repeat the last frame's keypoints or skip
                 if all_keypoints:
                     all_keypoints.append(all_keypoints[-1])
                 continue
 
-            # Extract keypoints (x, y) and scores
-            keypoints_xy = results[0].pred_instances.keypoints[0]  # Shape: (133, 2)
-            scores = results[0].pred_instances.keypoint_scores[0]  # Shape: (133,)
+            keypoints_xy = results[0].pred_instances.keypoints[0]
+            scores = results[0].pred_instances.keypoint_scores[0]
 
-            # Combine into (x, y, score) format
             keypoints_with_scores = np.hstack([keypoints_xy, scores[:, np.newaxis]])
             all_keypoints.append(keypoints_with_scores)
 
