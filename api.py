@@ -47,9 +47,12 @@ predictor = Predictor(PREDICTOR_CFG_PATH, PREDICTOR_CKPT_PATH, device=DEVICE)
 ALPHA = predictor.config['model']['RecognitionNetwork']['SlowFast']['Alpha']
 print("Models initialized successfully. API is ready.")
 
+@app.get("/")
+async def root():
+    return {"message": "Sign Language Recognition API is running. Use the /predict endpoint with a video_url parameter."}
 
-@app.get("/predict_gloss_from_url")
-async def predict_gloss_from_url(video_url: str):
+@app.get("/predict")
+async def predict(video_url: str):
     try:
         print(f"Downloading video from: {video_url}")
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=True) as tmp_file:
