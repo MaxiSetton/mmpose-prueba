@@ -15,8 +15,8 @@ from kp_api import KeypointExtractor
 DEVICE = 'cpu'  # or 'cuda' if you have a GPU
 PREDICTOR_CFG_PATH = 'phoenix-2014t.yaml'
 PREDICTOR_CKPT_PATH = 'best.pth'
-KP_EXTRACTOR_CFG = 'rtmw-l_8xb320-270e_cocktail14-384x288.py'  # MMPose config alias or path
-KP_EXTRACTOR_CKPT = 'rtmw-dw-x-l_simcc-cocktail14_270e-384x288-20231122.pth'
+KP_EXTRACTOR_CFG = '/home/ubuntu/SignAI-SFS/AI-Setto/mmpose/configs/wholebody_2d_keypoint/rtmpose/cocktail14/rtmw-l_8xb320-270e_cocktail14-384x288.py'  # MMPose config alias or path
+KP_EXTRACTOR_CKPT = '/home/ubuntu/SignAI-SFS/AI-Setto/mmpose/rtmw-dw-x-l_simcc-cocktail14_270e-384x288-20231122.pth'
 
 # --- Global Model Initialization ---
 # This is crucial for performance. Models are loaded once when the API starts.
