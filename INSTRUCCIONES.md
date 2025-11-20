@@ -31,7 +31,7 @@ python -c "from mmcv.ops import RoIPool; print('✅ ¡MISIÓN CUMPLIDA! MMCV com
 Una vez que esté todo instalado, hay que:
 1. clonar el repo de mmpose  
 2. Descargar el .pth (checkpoint) desde el model zoo de openpose (rtmw-dw-x-l_simcc-cocktail14_270e-384x288-20231122.pth)
-3. Mover kp_api, el preprocess.ipynb y rtmw-dw-x-l_simcc-cocktail14_270e-384x288-20231122.pth a la carpeta 'mmpose'
+3. Mover kp_api, el preprocess.py y rtmw-dw-x-l_simcc-cocktail14_270e-384x288-20231122.pth a la carpeta 'mmpose'
 4. Instalar rclone
 ```bash
 # Ejecutar como Administrador si winget requiere permisos
@@ -52,7 +52,7 @@ rclone version
 ```
 - Luego cerrar y volver a abrir para ejecutar
 
-4. Ejecutar el preprocess.ipynb desde la carpeta mmpose
+4. Ejecutar el preprocess.py desde la carpeta mmpose
 SI TIRA ERROR XTCOCOTOOLS:
 ```bash
 pip install numpy<2.0
